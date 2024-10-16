@@ -1,0 +1,30 @@
+@use '@angular/material' as mat;
+
+@mixin theme($theme) {
+    body {
+      background-color: mat.get-theme-color($theme, background);
+      color: mat.get-theme-color($theme, on-background)
+    }
+    
+    mat-toolbar {
+      background-color: mat.get-theme-color($theme, primary-container) !important;
+    }
+  
+    ::-webkit-scrollbar {
+        width: 0.5rem;
+      }
+    
+    ::-webkit-scrollbar-track {
+      background-color: mat.get-theme-color($theme, surface);
+    }
+  
+    ::-webkit-scrollbar-thumb {
+      background-color: mat.get-theme-color($theme, outline-variant); /* Color of the scrollbar */
+      border-radius: 1rem;
+      @include mat.elevation(2);
+    }
+  
+    ::-webkit-scrollbar-thumb:hover {
+      background-color: mat.get-theme-color($theme, secondary-fixed-dim); /* Color of the scrollbar on hover */
+    }
+}

@@ -24,7 +24,10 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/three-dee-space",
+            "outputPath": {
+              "base": "docs/",
+              "browser": ""
+            },
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": [
@@ -39,7 +42,9 @@
               }
             ],
             "styles": [
-              "src/styles.scss"
+              "@angular/material/prebuilt-themes/cyan-orange.css",
+              "src/styles.scss",
+              "src/cyan-orange.scss"
             ],
             "scripts": []
           },
@@ -98,7 +103,9 @@
               }
             ],
             "styles": [
-              "src/styles.scss"
+              "@angular/material/prebuilt-themes/cyan-orange.css",
+              "src/styles.scss",
+              "src/cyan-orange.scss"
             ],
             "scripts": []
           }

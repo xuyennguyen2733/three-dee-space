@@ -1,0 +1,8 @@
+<mat-toolbar>
+    <input #upload hidden="true" type="file" class="file-upload" onchange="console.log(event.target.files)" />
+    <button color="primary" mat-button (click)="upload.click()">
+        Upload a 3D Model
+    </button>
+    
+    <button color="primary" mat-button>Browse Available Models</button>
+</mat-toolbar>

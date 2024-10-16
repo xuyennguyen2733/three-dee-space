@@ -1,0 +1,15 @@
+For getting started with AngularJS and Angular Material, look at PortfolioWebsite/instruction.txt
+
+I. Setting up your angular project for three.AngularJS
+
+- In the terminal
+
+RUN `npm install three @types/three`
+
+
+- In [your-scene-component].ts
+
+import * as THREE from 'three';
+import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader.js';
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
+
