@@ -4,5 +4,10 @@
         Upload a 3D Model
     </button>
     
-    <button color="primary" mat-button>Browse Available Models</button>
+    <button color="primary" mat-button [matMenuTriggerFor]="menu">Browse Available Models</button>
+    <mat-menu #menu="matMenu">
+        @for (model of modelList; track model) {
+            <button mat-menu-item (click)="onSelectModel(model.path)">{{model.name}}</button>
+        }
+    </mat-menu>
 </mat-toolbar>

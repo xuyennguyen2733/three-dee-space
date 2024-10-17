@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import * as THREE from 'three';
 import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader.js';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
@@ -14,13 +14,20 @@ export class ThreeDeeBoxComponent implements OnInit {
   private camera!: THREE.PerspectiveCamera;
   private mixer: THREE.AnimationMixer | undefined;
   private controls!: OrbitControls;
+  private loader!: FBXLoader;
   private clock = new THREE.Clock();
+  
+  @Input() path: string | undefined;
   
   constructor () {}
   
   ngOnInit(): void {
     this.initThreeJS();
     this.animate();
+  }
+  
+  ngOnChanges() {
+    this.loadModel();
   }
   
   initThreeJS() {
@@ -58,33 +65,10 @@ export class ThreeDeeBoxComponent implements OnInit {
     this.scene.add(directionalLight);
     
     // Load FBX model
-    const loader = new FBXLoader();
-    loader.load(
-      'models/Seagull_Flying.fbx', // file path
-      (object) => { // onLoad function
-        object.traverse((child) => {
-          if ((child as THREE.Mesh).isMesh) {
-            child.castShadow = true;
-            child.receiveShadow = true;
-          }
-        })
-        
-        object.scale.set(0.1, 0.1, 0.1);
-        this.scene.add(object);
-        
-        // Animation mixer
-        this.mixer = new THREE.AnimationMixer(object);
-        const action = this.mixer.clipAction((object as any).animations[0]);
-        action.play();
-      },
-      undefined, // onProgress function
-      (error) => { // onError function
-        console.error('An error has occured', error);
-      }
-    );
+    this.loader = new FBXLoader();
   }
   
-  animate() {
+  private animate() {
     requestAnimationFrame(() => this.animate());
     
     const delta = this.clock.getDelta();
@@ -94,5 +78,33 @@ export class ThreeDeeBoxComponent implements OnInit {
     // this.controls.addEventListener( 'change', ()=>{this.renderer.render(this.scene, this.camera)} );
     this.controls.update();
     this.renderer.render(this.scene, this.camera);
+  }
+  
+  private loadModel() {
+    if (this.path) {
+      this.loader.load(
+        this.path, // file path
+        (object) => { // onLoad function
+          object.traverse((child) => {
+            if ((child as THREE.Mesh).isMesh) {
+              child.castShadow = true;
+              child.receiveShadow = true;
+            }
+          })
+          
+          object.scale.set(0.1, 0.1, 0.1);
+          this.scene.add(object);
+          
+          // Animation mixer
+          this.mixer = new THREE.AnimationMixer(object);
+          const action = this.mixer.clipAction((object as any).animations[0]);
+          action.play();
+        },
+        undefined, // onProgress function
+        (error) => { // onError function
+          console.error('An error has occured', error);
+        }
+      );
+    }
   }
 }

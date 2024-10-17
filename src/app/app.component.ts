@@ -7,4 +7,9 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'three-dee-space';
+  modelPath: string | undefined;
+  
+  displayModel (path: string) {
+    this.modelPath = path;
+  }
 }

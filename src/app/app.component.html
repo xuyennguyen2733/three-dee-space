@@ -1,6 +1,6 @@
 <header>
-    <app-top-nav></app-top-nav>
+    <app-top-nav (displayModel)="displayModel($event)"></app-top-nav>
 </header>
 <main>
-    <app-three-dee-box></app-three-dee-box>
+    <app-three-dee-box [path]="modelPath"></app-three-dee-box>
 </main>
