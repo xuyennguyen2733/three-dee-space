@@ -39,9 +39,10 @@ export class ThreeDeeBoxComponent implements OnInit {
     
     // Create a renderer
     this.renderer = new THREE.WebGLRenderer({antialias: true});
-    this.renderer.setSize(window.innerWidth, window.innerHeight);
+    const threeJsContainer = document.querySelector('#threejs-container')
+    this.renderer.setSize(threeJsContainer!.clientWidth, threeJsContainer!.clientHeight);
     this.renderer.shadowMap.enabled = true;
-    document.body.appendChild(this.renderer.domElement);
+    threeJsContainer!.appendChild(this.renderer.domElement);
     
     // Add OrbitControls
     this.controls = new OrbitControls(this.camera, this.renderer.domElement);
